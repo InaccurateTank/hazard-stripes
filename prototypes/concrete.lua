@@ -19,6 +19,8 @@ for i = 1, #ctypes, 1 do
         sta.name = ctypes[i] .. "-" .. dir[d].this
         sta.next_direction = ctypes[i] .. "-" .. dir[d].next
         sta.minable.result = ctypes[i]
+        sta.variants.material_background.picture = "__hazard-stripes__/graphics/ops-concrete/ops-concrete-" .. dir[d].this .. ".png"
+        sta.variants.material_background.hr_version.picture = "__hazard-stripes__/graphics/ops-concrete/hr-ops-concrete-" .. dir[d].this .. ".png"
 
         -- Refined
         local ref = table.deepcopy(data.raw["tile"]["refined-hazard-concrete-" .. dir[d].this])
