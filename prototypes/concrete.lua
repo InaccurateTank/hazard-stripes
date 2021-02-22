@@ -61,7 +61,7 @@ for i = 1, #ctypes, 1 do
     local refItem = table.deepcopy(data.raw["item"]["refined-hazard-concrete"])
     refItem.name = "refined-" .. ctypes[i]
     refItem.icon = "__hazard-stripes__/graphics/icons/refined-" .. ctypes[i] .. ".png"
-    refItem.order = "b[concrete]-d[refined-".. ctypes[i] .. "]"
+    refItem.order = "b[concrete]-d[refined-"..ctypes[i].."]"
     refItem.place_as_tile =
     {
         result = "refined-" .. ctypes[i] .. "-left",
