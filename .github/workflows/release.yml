@@ -1,0 +1,32 @@
+name: Add package to release
+on:
+  release:
+    types: [published]
+
+env: release =
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone
+      uses: actions/checkout@v3
+    - name: Read Json
+      id: read_json
+      run: |
+        content=`cat ./info.json`
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo "::set-output name=packageJson::$content"
+    - name: Zip
+      run: |
+        cd ..
+        zip -r archive.zip ./hazard-stripes -x ".git/*" ".github/*" "assets/*" ".editorconfig" "gitignore"
+    - name: Release
+      uses: svenstaro/upload-release-action@2.9.0
+      with:
+        file: ../archive.zip
+        asset_name: hazard-stripes_${{fromJson(steps.set_var.outputs.packageJson).version}}.zip

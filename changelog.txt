@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 2024-02-22
+  Bugfixes:
+    - Fixed recipes not showing up in already started games. Thank github making me miss this bug report by more than a year.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 2021-02-22
   Features:
