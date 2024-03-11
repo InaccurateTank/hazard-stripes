@@ -17,7 +17,7 @@ jobs:
     - name: Zip
       run: |
         cd ..
-        zip -r archive.zip ./hazard-stripes -x ".git/*" ".github/*" "assets/*" ".editorconfig" "gitignore"
+        zip -r archive.zip ./hazard-stripes -x "*/.git/*" "*/.github/*" "*/assets/*" "*/.editorconfig" "*/.gitignore"
     - name: Release
       uses: svenstaro/upload-release-action@2.9.0
       with:
