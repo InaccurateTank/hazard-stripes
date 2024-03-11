@@ -3,6 +3,9 @@ on:
   release:
     types: [published]
 
+env:
+  version: 1.1.1
+
 jobs:
   build:
     permissions:
@@ -11,14 +14,6 @@ jobs:
     steps:
     - name: Clone
       uses: actions/checkout@v3
-    - name: Read Json
-      id: read_json
-      run: |
-        content=`cat ./info.json`
-        content="${content//'%'/'%25'}"
-        content="${content//$'\n'/'%0A'}"
-        content="${content//$'\r'/'%0D'}"
-        echo "::set-output name=packageJson::$content"
     - name: Zip
       run: |
         cd ..
@@ -27,4 +22,4 @@ jobs:
       uses: svenstaro/upload-release-action@2.9.0
       with:
         file: ../archive.zip
-        asset_name: hazard-stripes_${{fromJson(steps.set_var.outputs.packageJson).version}}.zip
+        asset_name: hazard-stripes_${{ env.version }}.zip
