@@ -20,9 +20,7 @@ for i = 1, #ctypes, 1 do
     sta.next_direction = ctypes[i] .. "-" .. dir[d].next
     sta.minable.result = ctypes[i]
     sta.variants.material_background.picture = "__hazard-stripes__/graphics/" ..
-    ctypes[i] .. "/" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
-    sta.variants.material_background.hr_version.picture = "__hazard-stripes__/graphics/" ..
-    ctypes[i] .. "/hr-" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
+      ctypes[i] .. "/" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
 
     -- Refined
     local ref = table.deepcopy(data.raw["tile"]["refined-hazard-concrete-" .. dir[d].this])
@@ -30,9 +28,7 @@ for i = 1, #ctypes, 1 do
     ref.next_direction = "refined-" .. ctypes[i] .. "-" .. dir[d].next
     ref.minable.result = "refined-" .. ctypes[i]
     ref.variants.material_background.picture = "__hazard-stripes__/graphics/" ..
-    ctypes[i] .. "/refined-" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
-    ref.variants.material_background.hr_version.picture = "__hazard-stripes__/graphics/" ..
-    ctypes[i] .. "/hr-refined-" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
+      ctypes[i] .. "/refined-" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
 
     data:extend({ sta, ref })
   end
@@ -41,12 +37,12 @@ for i = 1, #ctypes, 1 do
   -- Standard
   local staRec = table.deepcopy(data.raw["recipe"]["hazard-concrete"])
   staRec.name = ctypes[i]
-  staRec.result = ctypes[i]
+  staRec.results[1].name = ctypes[i]
 
   -- Refined
   local refRec = table.deepcopy(data.raw["recipe"]["refined-hazard-concrete"])
   refRec.name = "refined-" .. ctypes[i]
-  refRec.result = "refined-" .. ctypes[i]
+  refRec.results[1].name = "refined-" .. ctypes[i]
 
   ----- Items -----
   -- Standard
@@ -54,24 +50,14 @@ for i = 1, #ctypes, 1 do
   staItem.name = ctypes[i]
   staItem.icon = "__hazard-stripes__/graphics/icons/" .. ctypes[i] .. ".png"
   staItem.order = "b[concrete]-b[" .. ctypes[i] .. "]"
-  staItem.place_as_tile =
-  {
-    result = ctypes[i] .. "-left",
-    condition_size = 1,
-    condition = { "water-tile" }
-  }
+  staItem.place_as_tile.result = ctypes[i] .. "-left"
 
   -- Refined
   local refItem = table.deepcopy(data.raw["item"]["refined-hazard-concrete"])
   refItem.name = "refined-" .. ctypes[i]
   refItem.icon = "__hazard-stripes__/graphics/icons/refined-" .. ctypes[i] .. ".png"
   refItem.order = "b[concrete]-d[refined-" .. ctypes[i] .. "]"
-  refItem.place_as_tile =
-  {
-    result = "refined-" .. ctypes[i] .. "-left",
-    condition_size = 1,
-    condition = { "water-tile" }
-  }
+  refItem.place_as_tile.result = "refined-" .. ctypes[i] .. "-left"
 
   data:extend({ staRec, refRec, staItem, refItem })
   table.insert(data.raw.technology["concrete"].effects, { type = "unlock-recipe", recipe = ctypes[i] })
