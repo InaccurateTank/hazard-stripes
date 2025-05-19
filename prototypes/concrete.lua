@@ -17,18 +17,22 @@ for i = 1, #ctypes, 1 do
     -- Standard
     local sta = table.deepcopy(data.raw["tile"]["hazard-concrete-" .. dir[d].this])
     sta.name = ctypes[i] .. "-" .. dir[d].this
+    sta.order = "a[artificial]-b[tier-2]-c[" .. ctypes[i] .. "-" .. dir[d].this .. "]"
     sta.next_direction = ctypes[i] .. "-" .. dir[d].next
     sta.minable.result = ctypes[i]
     sta.variants.material_background.picture = "__hazard-stripes__/graphics/" ..
       ctypes[i] .. "/" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
+    sta.placeable_by.item = ctypes[i]
 
     -- Refined
     local ref = table.deepcopy(data.raw["tile"]["refined-hazard-concrete-" .. dir[d].this])
     ref.name = "refined-" .. ctypes[i] .. "-" .. dir[d].this
+    ref.order = "a[artificial]-c[tier-3]-a[refined-" .. ctypes[i] .. "-" .. dir[d].this .. "]"
     ref.next_direction = "refined-" .. ctypes[i] .. "-" .. dir[d].next
     ref.minable.result = "refined-" .. ctypes[i]
     ref.variants.material_background.picture = "__hazard-stripes__/graphics/" ..
       ctypes[i] .. "/refined-" .. ctypes[i] .. "-" .. dir[d].this .. ".png"
+    ref.placeable_by.item = "refined-" .. ctypes[i]
 
     data:extend({ sta, ref })
   end
